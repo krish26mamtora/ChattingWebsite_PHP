@@ -1,5 +1,10 @@
 <?php
-include 'partials/nav.php';
+
+if(file_exists('partials/nav.php')) {
+  include 'partials/nav.php';
+}else{
+  echo "Navigation file not found.";
+}
 
 if($_SESSION['loggedin']=true){
     echo '
@@ -10,17 +15,20 @@ if($_SESSION['loggedin']=true){
     ';
 }
 
-
-
 if(isset($_POST['Delete_Account'])){
-
+   
+  if(file_exists('partials/db_connect.php')) {
     include 'partials/db_connect.php';
+    
+  }else{
+    echo "connection file not found.";
+  }
+
     $email=$_SESSION['email'];
     echo $email;
     $sql = "DELETE FROM `user_details` WHERE `email` = '$email'";
     $result = mysqli_query($link,$sql);
-    echo "account deleted";
-    
+    echo "account deleted"; 
     session_unset();
     session_destroy();
     header("location:Homepage.php");
@@ -28,17 +36,17 @@ if(isset($_POST['Delete_Account'])){
 }
 ?>
 
+
 <br><br>
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_account">
   Delete Account
 </button>
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete_account" tabindex="-1" aria-labelledby="delete_accountLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Account</h1>
+        <h1 class="modal-title fs-5" id="delete_accountLabel">Delete Account</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
