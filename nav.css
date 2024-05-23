@@ -1,0 +1,8 @@
+#navitem{
+    color: white; 
+   
+}
+#navitem:hover{
+    
+    transform: scale(1.1);
+}
