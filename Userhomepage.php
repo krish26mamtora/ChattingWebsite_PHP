@@ -1,13 +1,9 @@
 <?php
 
-if(file_exists('partials/nav.php')) {
-  include 'partials/nav.php';
-}else{
-  echo "Navigation file not found.";
-}
 
-if($_SESSION['loggedin']=true){
-    echo '
+
+if ($_SESSION['loggedin'] = true) {
+  echo '
     <div class="alert alert-secondary alert-dismissible fade show" role="alert" Style="margin-top:5px;">
       <strong>Welcome!!</strong>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -15,28 +11,45 @@ if($_SESSION['loggedin']=true){
     ';
 }
 
-if(isset($_POST['Delete_Account'])){
-   
-  if(file_exists('partials/db_connect.php')) {
+if (isset($_POST['Delete_Account'])) {
+
+  if (file_exists('partials/db_connect.php')) {
     include 'partials/db_connect.php';
-    
-  }else{
+  } else {
     echo "connection file not found.";
   }
 
-    $email=$_SESSION['email'];
-    echo $email;
-    $sql = "DELETE FROM `user_details` WHERE `email` = '$email'";
-    $result = mysqli_query($link,$sql);
-    echo "account deleted"; 
-    session_unset();
-    session_destroy();
-    header("location:Homepage.php");
-
+  $email = $_SESSION['email'];
+  echo $email;
+  $sql = "DELETE FROM `user_details` WHERE `email` = '$email'";
+  $result = mysqli_query($link, $sql);
+  echo "account deleted";
+  session_unset();
+  session_destroy();
+  header("location:Homepage.php");
 }
 ?>
 
-
+<button id="sendFD">Send Request</button>
+<script>
+  document.getElementById('sendFD').addEventListener('click', function() {
+    window.location.href = 'DisplayAllUsersWhileAdding.php';
+  });
+</script>
+<br><br>
+<button id="ReceivedFR">Recieved Request</button>
+<script>
+  document.getElementById('ReceivedFR').addEventListener('click', function() {
+    window.location.href = 'DisplayReceivedFR.php';
+  });
+</script>
+<br><br>
+<button id="Friends">Friends</button>
+<script>
+  document.getElementById('Friends').addEventListener('click', function() {
+    window.location.href = 'DisplayAllFriendsList.php';
+  });
+</script>
 <br><br>
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_account">
   Delete Account
@@ -55,13 +68,11 @@ if(isset($_POST['Delete_Account'])){
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <form action="Userhomepage.php" method=POST>
-        <button type="submit" name="Delete_Account" class="btn btn-danger">Delete</button>
+          <button type="submit" name="Delete_Account" class="btn btn-danger">Delete</button>
 
         </form>
-        
+
       </div>
     </div>
   </div>
 </div>
-
-
