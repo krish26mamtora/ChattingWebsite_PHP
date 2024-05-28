@@ -6,6 +6,7 @@ if (file_exists('partials/db_connect.php')) {
 } else {
     echo "connection file not found.";
 }
+
 $email = $_SESSION['email'];
 
 $UIDofCurrentLoginUser = "SELECT UID FROM user_details WHERE email = '$email'";
@@ -33,21 +34,36 @@ if ($result = mysqli_query($link, $sql)) {
 
             <?php
             while ($row = mysqli_fetch_array($result)) {
-
+                $otherUserUID = $row['UID'];
+                $otherUserEmail = $row['email'];
+            
+                $sentQuery = "SELECT * FROM user_connections WHERE UID = '$CurrentLoginUID'";
+                $sentResult = mysqli_query($link, $sentQuery);
+                $alreadySent = false;
+                if ($sentResult && mysqli_num_rows($sentResult) > 0) {
+                    $sentRow = mysqli_fetch_assoc($sentResult);
+                    $sentArray = explode(',', $sentRow['Sent']);
+                  
+                    if (in_array($otherUserUID, $sentArray)) {
+                        $alreadySent = true;            
+                    }
+                }
+              
             ?>
                 <tr>
                     <td><?php echo $row['email']; ?></td>
                     <td>
-                        <form method="POST" action="SendFriendRequest.php">
-                            <input type="hidden" name="senduseremail" value="<?php echo $row['email']; ?>">
-                            <input type="hidden" name="UID" value="<?php echo $row['UID']; ?>">
-                            <input type="hidden" name="CurrentLoginUID" value="<?php echo $CurrentLoginUID; ?>">
-
-                            <input type="hidden" name="currentuser" value="<?php echo $_SESSION["email"]; ?>">
-                            <button type="submit" name="SendFR">Add Friend</button>
-
-                        </form>
-
+                    <?php if ($alreadySent) { ?>
+                            <button disabled>Already Sent</button>
+                        <?php } else { ?>
+                            <form method="POST" action="SendFriendRequest.php">
+                                <input type="hidden" name="senduseremail" value="<?php echo $otherUserEmail; ?>">
+                                <input type="hidden" name="UID" value="<?php echo $otherUserUID; ?>">
+                                <input type="hidden" name="CurrentLoginUID" value="<?php echo $CurrentLoginUID; ?>">
+                                <input type="hidden" name="currentuser" value="<?php echo $_SESSION["email"]; ?>">
+                                <button type="submit" name="SendFR">Add Friend</button>
+                            </form>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php
@@ -64,13 +80,8 @@ if ($result = mysqli_query($link, $sql)) {
 } else {
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
-
-
 mysqli_close($link);
 
 ?>
-
-
-
 
 <?php

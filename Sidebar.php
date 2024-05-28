@@ -51,7 +51,7 @@ if (!isset($_SESSION['email'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white" data-page="DisplayAllUsersWhileAdding.php">
+                    <a href="#" class="nav-link text-white" data-page="SendRequest.php">
                         <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                         Add Friends
                     </a>
@@ -77,7 +77,7 @@ if (!isset($_SESSION['email'])) {
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="Profile.php">Profile</a></li>
-                    <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+                    <li><a class="dropdown-item" href="logout.php">log out</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="DeleteAccount.php">Delete Account</a></li>
                 </ul>
