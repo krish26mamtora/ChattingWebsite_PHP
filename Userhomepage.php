@@ -38,7 +38,7 @@
 //   session_unset();
 //   session_destroy();
 //   header("location:Homepage.php");
-//}
+// }
 ?>
 <!-- <h1>hello</h1>
 <button id="sendFD">Send Request</button>
@@ -71,6 +71,7 @@
   });
 </script>
 <br><br>
+
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_account">
   Delete Account
 </button>

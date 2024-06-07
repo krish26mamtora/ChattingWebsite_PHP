@@ -34,10 +34,13 @@ if (isset($_POST['register'])) {
       $identifier = password_hash($random_num, PASSWORD_DEFAULT);
 
       $sql = "INSERT INTO user_details (identifier, email, password) VALUES ('$identifier', '$email', '$hash')";
+      $result = mysqli_query($link, $sql);
+        
       $connection = "INSERT INTO user_connections (UID) VALUES ('')";
       $InsertIntoConnections = mysqli_query($link, $connection);
 
-      $result = mysqli_query($link, $sql);
+      $userprofile = "INSERT INTO user_profile (UID) VALUES ('')";
+      $InderttoProfile = mysqli_query($link, $userprofile);
 
       if ($result) {
         $to = $email;

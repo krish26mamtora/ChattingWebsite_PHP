@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['suggestions'])) {
         if ($alreadySent) {
             echo "<button disabled>Already Sent</button>";
         } elseif ($alreadyFriend) {
-            echo '<button disabled>Already Friend</button>"';
+            echo '<button disabled>Already Friend</button>';
         } elseif ($alreadyReceived) {
             echo "<button disabled>Friend Request Pending</button>";
         } else {
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['suggestions'])) {
                 <input type="hidden" name="senduseremail" value="' . $row['email'] . '">
                 <input type="hidden" name="UID" value="' . $UIDtofind . '">
                 <input type="hidden" name="CurrentLoginUID" value="' . $CurrentLoginUID . '">
-
+                    
                 <input type="hidden" name="currentuser" value="' . $_SESSION["email"] . '">
                 <button type="submit" name="SendFR">Add Friend</button>
             </form>';

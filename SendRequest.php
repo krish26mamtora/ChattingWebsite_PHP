@@ -70,8 +70,9 @@ if ($result = mysqli_query($link, $sql)) {
         echo "<table>";
         echo "<tr>";
         echo "<th>id</th>";
+        echo "<th>Username</th>";
         echo "<th>Email</th>";
-     
+        echo "<th>View Profile</th>";
         echo "<th>Add</th>";
         echo "</tr>";
         while ($row = mysqli_fetch_array($result)) {
@@ -102,10 +103,19 @@ if ($result = mysqli_query($link, $sql)) {
             $SelectEmail_run = mysqli_query($link, $SelectEmail);
             if ($SelectEmail_run && mysqli_num_rows($SelectEmail_run) > 0) {
                 $Allrow = mysqli_fetch_assoc($SelectEmail_run);
+                echo "<td>" . $Allrow['username'] . "</td>";
                 echo '<td>' . $Allrow['email'] . '</td>';
             }
-     
             echo "<td>";
+            echo '<form method="POST" action="ViewProfile.php">
+                    <input type="hidden" name="senduseremail" value="' . $Allrow['email'] . '">
+                    <input type="hidden" name="UID" value="' . $otherUserUID . '">
+                    <input type="hidden" name="CurrentLoginUID" value="' . $CurrentLoginUID . '">
+                    <input type="hidden" name="currentuser" value="' . $_SESSION["email"] . '">
+                    <button type="submit" id="ViewProfile" name="ViewProfile">View Profile</button>
+                </form>'.'</td>' ;
+            
+                echo "<td>";
             if ($alreadySent) {
                 echo '<button disabled>Already Sent</button>';
             } elseif ($alreadyFriend) {
@@ -128,7 +138,7 @@ if ($result = mysqli_query($link, $sql)) {
         echo "</div>";
         mysqli_free_result($result);
     } else {
-        echo "No records matching your query were found.";
+        echo "No records  found.";
     }
 } else {
     echo "ERROR: Could not execute $sql. " . mysqli_error($link);

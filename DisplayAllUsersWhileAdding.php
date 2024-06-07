@@ -75,7 +75,7 @@ if ($result = mysqli_query($link, $sql)) {
 
         mysqli_free_result($result);
     } else {
-        echo "No records matching your query were found.";
+        echo "No records found.";
     }
 } else {
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
@@ -83,5 +83,3 @@ if ($result = mysqli_query($link, $sql)) {
 mysqli_close($link);
 
 ?>
-
-<?php

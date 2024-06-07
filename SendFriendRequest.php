@@ -45,10 +45,13 @@ if (isset($_POST['SendFR'])) {
 
         $NewSend = 'UPDATE user_connections SET Sent = "' . $newSentValue . '" WHERE UID="' . $CurrentLoginUID . '"';
         $run_NewSend = mysqli_query($link, $NewSend);
-        echo "friend request has been send";
+        echo "friend request has been send and last page is opening";
+        ?>
+        
+        <?php
         mysqli_free_result($result);
     } else {
-        echo "No records matching your query were found.";
+        echo "No records found.";
     }
 } else {
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);

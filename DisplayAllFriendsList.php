@@ -48,7 +48,6 @@ if (isset($_POST['RemoveFriend'])) {
 
 $UIDofFriends = "SELECT * FROM user_connections WHERE UID = '$CurrentLoginUID'";
 $result = mysqli_query($link, $UIDofFriends);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,55 +105,56 @@ $result = mysqli_query($link, $UIDofFriends);
 </head>
 <body>
     <h2>Your Friends</h2>
-    <table>
-        <tr>
-            <th>Email</th>
-            <th>Action</th>
-        </tr>
-        <?php
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $Friends = $row['Friends'];
+    <?php
+    $hasFriends = false;
+    if ($result && mysqli_num_rows($result) > 0) {
+        $row = mysqli_fetch_assoc($result);
+        $Friends = $row['Friends'];
 
+        if (!empty(trim($Friends))) {
             $friendsArray = explode(' ', $Friends);
             foreach ($friendsArray as $friendUID) {
                 $friendUID = trim($friendUID);
 
-                $EmailofFriends = "SELECT * FROM user_details WHERE UID = '$friendUID'";
-                $EmailofFriends_run = mysqli_query($link, $EmailofFriends);
+                if (!empty($friendUID)) {
+                    $EmailofFriends = "SELECT email FROM user_details WHERE UID = '$friendUID'";
+                    $EmailofFriends_run = mysqli_query($link, $EmailofFriends);
 
-                if ($EmailofFriends_run && mysqli_num_rows($EmailofFriends_run) > 0) {
-                    $fetchemail = mysqli_fetch_assoc($EmailofFriends_run);
-                    $FriendsEmail = $fetchemail['email'];
-                    ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($FriendsEmail); ?></td>
-                        <td>
-                            <form action="DisplayAllFriendsList.php" method="POST">
-                                <input type="hidden" name="FriendUID" value="<?php echo htmlspecialchars($friendUID); ?>">
-                                <input type="hidden" name="CurrentLoginUID" value="<?php echo htmlspecialchars($CurrentLoginUID); ?>">
-                                <button type="submit" name="RemoveFriend">Remove Friend</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php
-                } else {
-                    ?>
-                    <tr>
-                        <td colspan="2">No friends found</td>
-                    </tr>
-                    <?php
+                    if ($EmailofFriends_run && mysqli_num_rows($EmailofFriends_run) > 0) {
+                        if (!$hasFriends) {
+                            $hasFriends = true;
+                            echo '<table>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Action</th>
+                                    </tr>';
+                        }
+
+                        $fetchemail = mysqli_fetch_assoc($EmailofFriends_run);
+                        $FriendsEmail = $fetchemail['email'];
+                        ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($FriendsEmail); ?></td>
+                            <td>
+                                <form action="DisplayAllFriendsList.php" method="POST">
+                                    <input type="hidden" name="FriendUID" value="<?php echo htmlspecialchars($friendUID); ?>">
+                                    <input type="hidden" name="CurrentLoginUID" value="<?php echo htmlspecialchars($CurrentLoginUID); ?>">
+                                    <button type="submit" name="RemoveFriend">Remove Friend</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php
+                    }
                 }
             }
-        } else {
-            ?>
-            <tr>
-                <td colspan="2">No friends found for the current user.</td>
-            </tr>
-            <?php
         }
-        mysqli_close($link);
-        ?>
-    </table>
+    }
+    if ($hasFriends) {
+        echo '</table>';
+    } else {
+        echo "<p>No friends found for the current user.</p>";
+    }
+    mysqli_close($link);
+    ?>
 </body>
 </html>

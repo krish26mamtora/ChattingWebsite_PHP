@@ -16,7 +16,7 @@ form {
 }
 table {
     width: 100%;
-    max-width: 600px;
+    max-width: 1150px;
     border-collapse: collapse;
     margin-top: 20px;
     background-color: #ffffff;
@@ -64,7 +64,9 @@ button:disabled {
 button:disabled {
     background-color: #ddd;
 }
-
+#ViewProfile{
+    background-color: #fc5894;
+}
 .form-container {
     display: flex;
     align-items: center;

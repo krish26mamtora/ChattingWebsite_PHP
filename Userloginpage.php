@@ -32,7 +32,7 @@ if (isset($_GET['token'])) {
                         if ($update_status_run) {
                             $_SESSION['loggedin'] = true;
                             $_SESSION['email'] = $email;
-                            header('location:Sidebar.php');
+                            header('location:ProfileDetails.php');
                             exit();
                         }
                     } else {
