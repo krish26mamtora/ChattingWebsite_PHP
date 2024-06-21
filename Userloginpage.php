@@ -36,17 +36,34 @@ if (isset($_GET['token'])) {
                             exit();
                         }
                     } else {
-                        echo 'Please enter a valid password';
+                              echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        <strong>Please enter a valid password</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        ';
+                        // echo 'Please enter a valid password';
                     }
                 } else {
-                    echo 'Please Enter valid Email-id';
+                    echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        <strong>Please enter valid Email-id</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        ';
                 }
             }
         } else {
-            echo 'Account is already verified';
+            echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        <strong>Account is already varified</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        ';
         }
     } else {
-        echo 'Invalid token';
+        echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        <strong>Invalid token</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        ';
     }
 } else {
     $_SESSION['loggedin'] = false;
@@ -66,14 +83,28 @@ if (isset($_GET['token'])) {
                         header('location:Sidebar.php');
                         exit();
                     } else {
-                        echo "Invalid password";
+                        echo '<div class="d-flex justify-content-center">
+
+                        <div class="alert alert-danger alert-dismissible fade show mt-4 w-75" role="alert">
+                        <strong>Please enter a valid password</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div> </div>
+                        ';
                     }
                 } else {
-                    echo "Please verify your account";
+                    echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        <strong>Please varify your account</strong> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        ';
                 }
             }
         } else {
-            echo "No user found with this email";
+            echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+            <strong>No user found with this emial id</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            ';
         }
     }
 }

@@ -11,6 +11,8 @@ button:hover {
   color: white;
 }
 #maindiv{
+
+  
   display: flex;
   flex-direction: row;
   height: 490px;

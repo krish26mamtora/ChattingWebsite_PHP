@@ -119,7 +119,14 @@ if (!isset($_SESSION['email'])) {
                         <strong><?php echo $username; ?></strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <li><a class="dropdown-item" href="ProfileDetails.php">Profile</a></li>
+                        <!-- <li><a class="dropdown-item" href="ProfileDetails.php">Profile</a></li> -->
+                        <li>
+                        <a href="#" class="nav-link text-white" data-page="ProfileDetails.php">
+                            <svg class="bi pe-none me-2" width="16" height="16">
+                            </svg>
+                            Profile
+                        </a>
+                    </li>
                         <li><a class="dropdown-item" href="logout.php">log out</a></li>
                         <li>
                             <hr class="dropdown-divider">

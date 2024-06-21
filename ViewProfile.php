@@ -11,7 +11,7 @@
 
 <body>
     <div id="main">
-        <form action="Sidebar.php" method="POST" enctype="multipart/form-data">
+        <form method="POST" id="Addfriend" >
             <div class="form-group text-center">
                 <h2>User's Profile</h2>
             </div>
@@ -23,6 +23,18 @@
                     include 'partials/db_connect.php';
                 } else {
                     echo "connection file not found.";
+                }
+                $email = $_SESSION['email'];
+
+                $UIDofCurrentLoginUser = "SELECT * FROM user_details WHERE email = '$email'";
+                $result = mysqli_query($link, $UIDofCurrentLoginUser);
+                
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $row = mysqli_fetch_assoc($result);
+                    $CurrentLoginUID = $row['UID'];
+                    $CurrentLoginName = $row['username'];
+                } else {
+                    die("User not found.");
                 }
 
                 if (isset($_POST['ViewProfile'])) {
@@ -52,7 +64,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" readonly value="<?php echo $UserEmail; ?>">
+                <input type="email" id="email" name="senduseremail" readonly value="<?php echo $UserEmail; ?>">
             </div>
             <div class="form-group row">
                 <div>
@@ -63,6 +75,10 @@
                     <label for="username">Connections</label>
                     <input type="text" id="Connections" name="Connections" value="<?php echo $totalNumbers; ?>" readonly>
                 </div>
+                <input type="hidden" id="UID" name="UID" value="<?php echo  $UserUID; ?>" readonly>
+                <input type="hidden" id="CurrentLoginUID" name="CurrentLoginUID" value="<?php echo  $CurrentLoginUID; ?>" readonly>
+                <input type="hidden" id="currentuser" name="currentuser" value="<?php echo  $$email; ?>" readonly>
+
             </div>
             <div class="form-group row">
                 <div>
@@ -78,17 +94,45 @@
                 <label for="about">About</label>
                 <textarea id="about" name="about" readonly><?php echo $row['About']; ?></textarea>
             </div>
-
+            <button type="button">Add Friend</button>
+        </form>
+        <form action="Sidebar.php">
             <button type="submit">Back</button>
         </form>
     </div>
 </body>
 
 </html>
-
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.SendFR', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'SendRequest.php',
+                data: $('#Addfriend').serialize(),
+                success: function(response) {
+                   alert(response);
+                },
+                error: function() {
+                   alert("error");
+                }
+            });
+        });
+    });
+</script>
 <?php
 
                         }
                     }
                 }
+
+
+                // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+                //     $sendtoemail = $_POST['senduseremail'];
+                //     $UID = $_POST['UID'];
+                //     $currentmail = $_POST['currentuser'];
+                //     $CurrentLoginUID = $_POST['CurrentLoginUID'];
+                // }
 ?>

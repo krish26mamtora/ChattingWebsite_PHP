@@ -82,3 +82,7 @@ button:disabled {
     align-items: center;
     gap: 10px; /* Adjust the gap between elements as needed */
 }
+.view_only{
+    background-color: #c2c0da;
+    color: black;
+}

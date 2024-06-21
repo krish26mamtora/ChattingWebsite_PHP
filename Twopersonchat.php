@@ -77,7 +77,6 @@ function insertMessage($name, $msg, $sender, $receiver)
             font-family: 'Poppins', sans-serif;
             height: 650px;
             width: 100%;
-            /* background-color: #6a5acd; */
             position: relative;
 
         }
@@ -85,7 +84,6 @@ function insertMessage($name, $msg, $sender, $receiver)
         #top {
             display: flex;
             align-items: center;
-            /* justify-content: center; */
             padding: 10px;
 
             height: 70px;
