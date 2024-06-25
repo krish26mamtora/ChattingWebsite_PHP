@@ -1,17 +1,11 @@
 <?php
-
 if (file_exists('partials/nav.php')) {
   include 'partials/nav.php';
 } else {
   echo "Navigation file not found.";
 }
 
-?>
-
-<?php
-
 if (isset($_POST['register'])) {
-
   if (file_exists('partials/db_connect.php')) {
     include 'partials/db_connect.php';
   } else {
@@ -40,8 +34,13 @@ if (isset($_POST['register'])) {
       $identifier = password_hash($random_num, PASSWORD_DEFAULT);
 
       $sql = "INSERT INTO user_details (identifier, email, password) VALUES ('$identifier', '$email', '$hash')";
-
       $result = mysqli_query($link, $sql);
+        
+      $connection = "INSERT INTO user_connections (UID) VALUES ('')";
+      $InsertIntoConnections = mysqli_query($link, $connection);
+
+      $userprofile = "INSERT INTO user_profile (UID) VALUES ('')";
+      $InderttoProfile = mysqli_query($link, $userprofile);
 
       if ($result) {
         $to = $email;
@@ -95,33 +94,96 @@ if (isset($_POST['register'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Signup</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style_signup.css">
+  <style>
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    .btn {
+      color: white;
+    }
+
+    #maindiv {
+      display: flex;
+      flex-direction: row;
+      height: 490px;
+      margin-top: 100px;
+      width: 730px;
+      border: 1px solid #a6a1e0;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 25px;
+      align-items: center;
+      justify-content: space-between;
+    }
+#regbtn{
+  background-color: slateblue;
+}
+    #left {
+      height: 100%;
+      width: 50%;
+    }
+
+    #signupform {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #right {
+      background-color: slateblue;
+      height: 100%;
+      width: 50%;
+      border-radius: 15px;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #right h1 {
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container" style="margin-top: 120px; width:550px;">
-    <form class="my-5" id="signupform" action="Usersignuppage.php" method="POST">
-      <div class="mb-3">
-        <h3 style="text-align:center;">Create Account</h3>
-        <br>
-      </div>
-      <div class="mb-3">
-        <label for="InputEmail" class="form-label">Email address</label>
-        <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" required>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password" required>
-      </div>
-      <div class="mb-3">
-        <label for="confirmpassword" class="form-label">Confirm Password</label>
-        <input type="password" name="confirm_password" class="form-control" id="confirmpassword" required>
-        <div id="emailHelp" class="form-text">Make sure you enter the same password</div>
-      </div>
-      <div class="d-flex justify-content-center">
-        <button type="submit" name="register" class="btn " style="background-color:slateblue">Register</button>
-      </div>
-    </form>
+  <div class="container" id="maindiv">
+    <div class="container" id="left">
+      <form class="my-1" id="signupform" action="Usersignuppage.php" method="POST">
+        <div class="mb-3">
+          <h3 style="text-align:center;">Create Account</h3>
+        
+        </div>
+        <div class="mb-3">
+          <label for="InputEmail" class="form-label">Email address</label>
+          <input type="email" name="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirmpassword" class="form-label">Confirm Password</label>
+          <input type="password" name="confirm_password" class="form-control" id="confirmpassword" required>
+          <div id="emailHelp" class="form-text">Make sure you enter the same password</div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="submit" name="register" class="btn" id="regbtn">Register</button>
+        </div>
+      </form>
+    </div>
+    <div class="container" id="right">
+      <h1>Welcome!</h1>
+      <p>Sign up to join our community.</p>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

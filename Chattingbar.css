@@ -1,0 +1,34 @@
+#main{
+    height: 650px;
+    width: 700px;
+    background-color: rgb(18, 2, 255);
+    display: flex;
+    align-items: center;
+}
+#left{
+    height: 650px;
+    width: 500px;
+    background-color: rgb(220, 174, 249);
+}
+
+.takemsg{
+    height: 40px;
+    width: 600px;
+    background-color: rgb(82, 237, 240);
+    display: flex;
+    align-items:center;
+    justify-content: center;
+
+}
+
+.message-container{
+    height: 20px;
+    width: 180px;
+    background-color: chocolate;
+}
+
+.friends-container {
+    display: flex;
+    align-items: center; 
+    flex-direction: row;
+}
