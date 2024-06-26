@@ -27,12 +27,12 @@ if ($result && mysqli_num_rows($result) > 0) {
         $country = $profileRow['country'];
         $phone = $profileRow['phone'];
         $about = $profileRow['About'];
-        $profilePic = $profileRow['profile_pic'] ? $profileRow['profile_pic'] : 'default-profile.png';
+        $profilePic = ($profileRow['profile_pic'] && file_exists($profileRow['profile_pic'])) ? $profileRow['profile_pic'] : 'dummy.jpg';
     } else {
         $country = '';
         $phone = '';
         $about = '';
-        $profilePic = 'default-profile.png';
+        $profilePic = 'dummy.jpg';
     }
 } else {
     echo "User not found.";
@@ -49,32 +49,24 @@ if (isset($_POST['savechanges'])) {
         $targetDir = "profile_pics/";
         $targetFile = $targetDir . basename($_FILES['profilePic']['name']);
         if (move_uploaded_file($_FILES['profilePic']['tmp_name'], $targetFile)) {
-            $UpdateProfile = "UPDATE user_profile SET profile_pic='$targetFile', username='$username', country='$country', phone='$phone', About='$about' WHERE UID=$CurrentLoginUID";
-            $UpdateDetails = "UPDATE user_details SET username='$username' WHERE UID=$CurrentLoginUID";
-            if (!mysqli_query($link, $UpdateProfile) || !mysqli_query($link , $UpdateDetails)) {
-                echo "Error updating record: " . mysqli_error($link);
-            } else {
-                echo 'profile updated';
-            }
+            $profilePic = $targetFile;
         } else {
-            echo '
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:5px;">
-              <strong>Error uploading profile picture!</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:5px;">
+                <strong>Error uploading profile picture!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>';
         }
+    }
+
+    $UpdateProfile = "UPDATE user_profile SET profile_pic='$profilePic', username='$username', country='$country', phone='$phone', About='$about' WHERE UID=$CurrentLoginUID";
+    $UpdateDetails = "UPDATE user_details SET username='$username' WHERE UID=$CurrentLoginUID";
+    if (!mysqli_query($link, $UpdateProfile) || !mysqli_query($link, $UpdateDetails)) {
+        echo "Error updating record: " . mysqli_error($link);
     } else {
-        $UpdateProfile = "UPDATE user_profile SET username='$username', country='$country', phone='$phone', About='$about' WHERE UID=$CurrentLoginUID";
-        $UpdateDetails = "UPDATE user_details SET username='$username' WHERE UID=$CurrentLoginUID";
-        if (!mysqli_query($link, $UpdateProfile) || !mysqli_query($link , $UpdateDetails)) {
-            echo "Error updating record: " . mysqli_error($link);
-        } else {
-            echo '
-            <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top:5px;">
-              <strong>Profile updated</strong>
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>';
-        }
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top:5px;">
+            <strong>Profile updated</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>';
     }
 }
 ?>
@@ -86,41 +78,55 @@ if (isset($_POST['savechanges'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
     <link rel="stylesheet" href="ProfileStyle.css">
+  
+    <script>
+        // Function to load the selected profile image
+        function loadProfileImage(event) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                var output = document.getElementById('profileImage');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    
 </head>
 <body>
     <div id="main">
+        <div id="allcontent">
         <form action="ProfileDetails.php" method="POST" enctype="multipart/form-data">
-            <div class="form-group text-center">
+            <div class="form-group text-center" id="heading">
                 <h2>Please enter your details</h2>
             </div>
             <div class="profile-pic">
-                <img id="profileImage" src="<?php echo $profilePic; ?>" alt="Profile Picture">
+                <img id="profileImage" src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture">
                 <input type="file" id="profilePicInput" name="profilePic" accept="image/*" onchange="loadProfileImage(event)">
                 <label for="profilePicInput">Upload Profile Picture</label>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="<?php echo $_SESSION['email']; ?>" readonly>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" readonly>
             </div>
             <div class="form-group row">
                 <div>
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" value="<?php echo $username; ?>" required>
+                    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div>
                     <label for="country">Country</label>
-                    <input type="text" id="country" name="country" value="<?php echo $country; ?>">
+                    <input type="text" id="country" name="country" value="<?php echo htmlspecialchars($country); ?>">
                 </div>
                 <div>
                     <label for="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" value="<?php echo $phone; ?>">
+                    <input type="tel" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
                 </div>
             </div>
             <div class="form-group">
                 <label for="about">About</label>
-                <textarea id="about" name="about"><?php echo $about; ?></textarea>
+                <textarea id="about" name="about"><?php echo htmlspecialchars($about); ?></textarea>
             </div>
             <div class="form-group row">
                 <button type="submit" name="savechanges" id="Edit">Save</button>
@@ -129,6 +135,7 @@ if (isset($_POST['savechanges'])) {
         <form action="Sidebar.php">
             <button type="submit">Back</button>
         </form>
+        </div>
     </div>
 </body>
 </html>

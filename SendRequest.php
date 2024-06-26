@@ -88,7 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     currentlogin: UID
 
                 }, function(data, status) {
-                    $("#search").html(data);
+                    var apd =  
+                    $("#searcheduser").html(data);
                 });
             });
 
@@ -100,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     url: 'SendRequest.php',
                     data: form.serialize(),
                     success: function(response) {
+                        
                         $('#reqsend').html(response);
                     },
                     error: function() {
@@ -121,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="email" name="UserEmailtoFind">
             <button type="submit" name="find" id="find">Find</button>
         </form>
-        <div id="search" style="height:90px; width:700px;">
+        <div id="searcheduser" style="width: 1150px;     background-color: #f0f0f0;" >
 
         </div>
         <br>

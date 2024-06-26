@@ -12,6 +12,8 @@ if (!isset($_SESSION['email'])) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         .sidebar {
@@ -29,7 +31,7 @@ if (!isset($_SESSION['email'])) {
 
         .nav-link:hover,
         .nav-link.active {
-            background-color: #007bff ;
+            background-color: #007bff;
         }
     </style>
 </head>
@@ -48,48 +50,44 @@ if (!isset($_SESSION['email'])) {
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
                         <a href="#" class="nav-link text-white" data-page="Userhomepage.php" id="home-link">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <!-- <use xlink:href="#home"></use> -->
-                            </svg>
+                            <i class="bi bi-house-door me-2"></i>
                             Home
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-page="DisplayAllFriendsList.php">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <!-- <use xlink:href="#speedometer2"></use> -->
-                            </svg>
+                            <i class="bi bi-people me-2"></i>
                             Friends
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-page="SendRequest.php">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <!-- <use xlink:href="#table"></use> -->
-                            </svg>
+                            <i class="bi bi-person-plus me-2"></i>
                             Add Friends
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-page="iindex.php">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <!-- <use xlink:href="#grid"></use> -->
-                            </svg>
-                            Chat
+                            <i class="bi bi-chat-dots me-2"></i>
+                            Chats
                         </a>
                     </li>
                     <li>
                         <a href="#" class="nav-link text-white" data-page="DisplayReceivedFR.php">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                                <!-- <use xlink:href="#people-circle"></use> -->
-                            </svg>
+                            <i class="bi bi-bell me-2"></i>
                             Notifications
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link text-white" data-page="ProfileSettings.php">
+                            <i class="bi bi-person me-2"></i>
+                            Profile
                         </a>
                     </li>
                 </ul>
                 <hr>
                 <?php
-                $email= $_SESSION['email'];
+                $email = $_SESSION['email'];
                 if (file_exists('partials/db_connect.php')) {
                     include 'partials/db_connect.php';
                 } else {
@@ -97,7 +95,7 @@ if (!isset($_SESSION['email'])) {
                 }
                 $UIDofCurrentLoginUser = "SELECT * FROM user_details WHERE email = '$email'";
                 $result = mysqli_query($link, $UIDofCurrentLoginUser);
-                
+
                 if ($result && mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_assoc($result);
                     $CurrentLoginUID = $row['UID'];
@@ -113,36 +111,7 @@ if (!isset($_SESSION['email'])) {
                 }
 
                 ?>
-                <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?php echo $profile_pic;?>" alt="" width="32" height="32" class="rounded-circle me-2">
-                        <strong><?php echo $username; ?></strong>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                        <!-- <li><a class="dropdown-item" href="ProfileDetails.php">Profile</a></li> -->
-                        <li>
-                        <a href="#" class="nav-link text-white" data-page="ProfileDetails.php">
-                            <svg class="bi pe-none me-2" width="16" height="16">
-                            </svg>
-                            Profile
-                        </a>
-                    </li>
-                        <li><a class="dropdown-item" href="logout.php">log out</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
-                            <form id="delete-account-form" action="Sidebar.php" method="post">
-                                <input type="hidden" name="Delete_Account" value="true">
-                                <button type="submit" class="dropdown-item" style="border: none; background: none; cursor: pointer; ">Delete Account</button>
-                            </form>
 
-                        </li>
-                        <?php
-
-                        ?>
-                    </ul>
-                </div>
             </div>
             <div class="col content" id="main-content">
             </div>
@@ -150,39 +119,75 @@ if (!isset($_SESSION['email'])) {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        $(document).ready(function() {
-            function loadPage(page) {
-                $.ajax({
-                    url: page,
-                    method: 'GET',
-                    success: function(data) {
-                        $('#main-content').html(data);
-                    },
-                    error: function() {
-                        $('#main-content').html('<p>Error loading page.</p>');
-                    }
-                });
-            }
+    $(document).ready(function() {
+        var currentPage = 'Userhomepage.php'; // Default page
 
-            loadPage('Userhomepage.php');
-            $('#home-link').addClass('active');
-
-            $('.nav-link').click(function(e) {
-                e.preventDefault();
-                $('.nav-link').removeClass('active');
-                $(this).addClass('active');
-                var page = $(this).data('page');
-                loadPage(page);
+        function loadPage(page) {
+            $.ajax({
+                url: page,
+                method: 'GET',
+                success: function(data) {
+                    $('#main-content').html(data);
+                },
+                error: function() {
+                    $('#main-content').html('<p>Error loading page.</p>');
+                }
             });
+        }
+
+        function getQueryParam(param) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        var pageFromQuery = getQueryParam('page');
+
+        if (pageFromQuery) {
+            currentPage = pageFromQuery;
+            $('.nav-link').removeClass('active');
+            $('.nav-link[data-page="' + pageFromQuery + '"]').addClass('active');
+        }
+
+        loadPage(currentPage);
+
+        // Set default active link
+        if (!pageFromQuery || pageFromQuery === 'Userhomepage.php') {
+            $('#home-link').addClass('active');
+        } else {
+            $('.nav-link').removeClass('active');
+            $('.nav-link[data-page="' + pageFromQuery + '"]').addClass('active');
+        }
+
+        $('.nav-link').click(function(e) {
+            e.preventDefault();
+            $('.nav-link').removeClass('active');
+            $(this).addClass('active');
+            currentPage = $(this).data('page'); // Update current page
+            loadPage(currentPage);
+
+            // Update URL without 'page' parameter
+            history.replaceState({}, document.title, window.location.pathname);
         });
-    </script>
+
+        $(window).on('load', function() {
+            $('#home-link').addClass('active'); // Default active link on page load
+        });
+    });
+</script>
+
+
 </body>
 
 </html>
 
 <?php
 if (isset($_POST['Delete_Account'])) {
+
 
     if (file_exists('partials/db_connect.php')) {
         include 'partials/db_connect.php';

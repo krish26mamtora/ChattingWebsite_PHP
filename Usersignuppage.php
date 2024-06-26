@@ -96,61 +96,7 @@ if (isset($_POST['register'])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="style_signup.css">
   <style>
-    * {
-      font-family: Arial, Helvetica, sans-serif;
-    }
 
-    button:hover {
-      transform: scale(1.1);
-    }
-
-    .btn {
-      color: white;
-    }
-
-    #maindiv {
-      display: flex;
-      flex-direction: row;
-      height: 490px;
-      margin-top: 100px;
-      width: 730px;
-      border: 1px solid #a6a1e0;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      padding: 20px;
-      border-radius: 25px;
-      align-items: center;
-      justify-content: space-between;
-    }
-#regbtn{
-  background-color: slateblue;
-}
-    #left {
-      height: 100%;
-      width: 50%;
-    }
-
-    #signupform {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    #right {
-      background-color: slateblue;
-      height: 100%;
-      width: 50%;
-      border-radius: 15px;
-      color: black;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #right h1 {
-      color: white;
-    }
   </style>
 </head>
 
@@ -175,6 +121,10 @@ if (isset($_POST['register'])) {
           <input type="password" name="confirm_password" class="form-control" id="confirmpassword" required>
           <div id="emailHelp" class="form-text">Make sure you enter the same password</div>
         </div>
+        <div class="mb-4">
+                    <label for="login" class="form-label">Already have account?</label>
+                    <a href="Userloginpage.php" id="login" name="login" class="alert-link" style="color: slateblue;">login</a>
+                </div>
         <div class="d-flex justify-content-center">
           <button type="submit" name="register" class="btn" id="regbtn">Register</button>
         </div>

@@ -32,38 +32,55 @@ if (isset($_GET['token'])) {
                         if ($update_status_run) {
                             $_SESSION['loggedin'] = true;
                             $_SESSION['email'] = $email;
+                            if(isset($_POST['rememberme'])){
+                                setcookie('emailcookie',$email,time()+86400);
+                                setcookie('passwordcookie',$pass,time()+86400);
+    
                             header('location:ProfileDetails.php');
                             exit();
                         }
+                            else{
+                                header('location:ProfileDetails.php');
+                                exit();
+                            }
+                        }
                     } else {
-                              echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        <strong>Please enter a valid password</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        ';
+                        //       echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                        // <strong>Please enter a valid password</strong> 
+                        // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        // </div>
+                        // ';
                         // echo 'Please enter a valid password';
+                        $_SESSION['msg']="Please enter a valid password";
+
                     }
                 } else {
-                    echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        <strong>Please enter valid Email-id</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        ';
+                    // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                    //     <strong>Please enter valid Email-id</strong> 
+                    //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    //     </div>
+                    //     ';
+                    $_SESSION['msg']="Please enter valid Email-id";
+
                 }
             }
         } else {
-            echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        <strong>Account is already varified</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        ';
+            // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+            //             <strong>Account is already varified</strong> 
+            //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            //             </div>
+            //             ';
+            $_SESSION['msg']="Account is already varified";
+
         }
     } else {
-        echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        <strong>Invalid token</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        ';
+        // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+        //                 <strong>Invalid token</strong> 
+        //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        //                 </div>
+        //                 ';
+        $_SESSION['msg']="Invalid token";
+
     }
 } else {
     $_SESSION['loggedin'] = false;
@@ -80,31 +97,45 @@ if (isset($_GET['token'])) {
                         $_SESSION['loggedin'] = true;
                         $_SESSION['email'] = $email;
                         $_SESSION['authenticated'] = 'true';
-                        header('location:Sidebar.php');
-                        exit();
-                    } else {
-                        echo '<div class="d-flex justify-content-center">
+                        if(isset($_POST['rememberme'])){
+                            setcookie('emailcookie',$email,time()+86400);
+                            setcookie('passwordcookie',$pass,time()+86400);
 
-                        <div class="alert alert-danger alert-dismissible fade show mt-4 w-75" role="alert">
-                        <strong>Please enter a valid password</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div> </div>
-                        ';
+                            header('location:Sidebar.php');
+                            exit();
+
+                        }else{
+                            header('location:Sidebar.php');
+                            exit();
+
+                        }
+                    } else {
+                        // echo '<div class="d-flex justify-content-center">
+
+                        // <div class="alert alert-danger alert-dismissible fade show mt-4 w-75" role="alert">
+                        // <strong>Please enter a valid password</strong> 
+                        // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        // </div> </div>
+                        // ';
+                        $_SESSION['msg']="Please enter a valid password";
                     }
                 } else {
-                    echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        <strong>Please varify your account</strong> 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                        ';
+                    // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+                    //     <strong>Please varify your account</strong> 
+                    //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    //     </div>
+                    //     ';
+                    $_SESSION['msg']="Please varify your account";
+
                 }
             }
         } else {
-            echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-            <strong>No user found with this emial id</strong> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            ';
+            // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
+            // <strong>No user found with this emial id</strong> 
+            // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            // </div>
+            // ';
+            $_SESSION['msg']="No user found with this emial id";
         }
     }
 }
@@ -123,11 +154,23 @@ if (isset($_GET['token'])) {
 
 <body>
 
+    <div id="dispmsg">
+    <?php 
+if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
+    echo $_SESSION['msg'];
+} else {
+    // echo "No message available.";
+}
+?>
+
+    </div>
     <div class="container" id="maindiv">
+        
         <div class="container" id="left">
-            <img src="" alt="">
+            <img src="loginimg.jpg" alt="loginimg">
+            <br>
             <h3>Be Verified</h3>
-            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <h6>"Connect in a Real and Meaningful Way!"</h6>
         </div>
         <div class="container" id="right">
             <form class="my-5" id="loginform" action="" method="POST">
@@ -138,14 +181,14 @@ if (isset($_GET['token'])) {
                 </div>
                 <div class="mb-3">
                     <label for="InputEmail" class="form-label">Email address</label>
-                    <input type="email" class="form-control" name="email" id="InputEmail" aria-describedby="emailHelp" required>
+                    <input type="email" value="<?php if(isset($_COOKIE['emailcookie'])){ echo $_COOKIE['emailcookie']; } ?>" class="form-control" name="email" id="InputEmail" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
                     <label for="InputPassword" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="InputPassword" required>
+                    <input type="password"  value="<?php if(isset($_COOKIE['passwordcookie'])){ echo $_COOKIE['passwordcookie']; } ?>"  name="password" class="form-control" id="InputPassword" required>
                 </div>
                 <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <input type="checkbox" class="form-check-input" name="rememberme" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Remember me</label>
                     <a href="ForgotPassword.php" id="forgotpass" name="forgotpass" class="alert-link" style="color: slateblue;">Forgot password?</a>
 

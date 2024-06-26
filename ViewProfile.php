@@ -11,7 +11,7 @@
 
 <body>
     <div id="main">
-        <form method="POST" id="Addfriend" >
+        <form method="POST" id="Addfriend">
             <div class="form-group text-center">
                 <h2>User's Profile</h2>
             </div>
@@ -28,7 +28,7 @@
 
                 $UIDofCurrentLoginUser = "SELECT * FROM user_details WHERE email = '$email'";
                 $result = mysqli_query($link, $UIDofCurrentLoginUser);
-                
+
                 if ($result && mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_assoc($result);
                     $CurrentLoginUID = $row['UID'];
@@ -94,10 +94,12 @@
                 <label for="about">About</label>
                 <textarea id="about" name="about" readonly><?php echo $row['About']; ?></textarea>
             </div>
-            <button type="button">Add Friend</button>
+            <button type="button" id="Addfrnd">Add Friend</button>
         </form>
-        <form action="Sidebar.php">
-            <button type="submit">Back</button>
+        <br>
+        <form action="Sidebar.php" method="GET">
+            <input type="hidden" name="page" value="SendRequest.php">
+            <button type="submit" id="back">Back</button>
         </form>
     </div>
 </body>
@@ -112,10 +114,10 @@
                 url: 'SendRequest.php',
                 data: $('#Addfriend').serialize(),
                 success: function(response) {
-                   alert(response);
+                    alert(response);
                 },
                 error: function() {
-                   alert("error");
+                    alert("error");
                 }
             });
         });
@@ -128,11 +130,4 @@
                 }
 
 
-                // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-                //     $sendtoemail = $_POST['senduseremail'];
-                //     $UID = $_POST['UID'];
-                //     $currentmail = $_POST['currentuser'];
-                //     $CurrentLoginUID = $_POST['CurrentLoginUID'];
-                // }
 ?>

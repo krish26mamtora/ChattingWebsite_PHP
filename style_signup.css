@@ -1,0 +1,75 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+
+  .btn {
+    color: white;
+  }
+body{
+background-color: #f3f3f3;
+
+}
+  #maindiv {
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: row;
+    height: 490px;
+    margin-top: 100px;
+    width: 730px;
+    border: 1px solid #a6a1e0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: space-between;
+  }
+#regbtn{
+background-color: slateblue;
+}
+  #left {
+    height: 100%;
+    width: 50%;
+  }
+
+  #signupform {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #right {
+    background-color: slateblue;
+    height: 100%;
+    width: 50%;
+    border-radius: 15px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #right h1 {
+    color: white;
+  }
+
+  
+#dispmsg {
+  height: 50px;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;  /* Center text vertically as well */
+  margin: 26px auto;    /* Auto margin horizontally and 50px top margin */
+  color: #6a5acd;
+  color: rgb(255, 77, 0);
+  font-size: 25px;
+}

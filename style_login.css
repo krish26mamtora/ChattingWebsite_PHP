@@ -2,17 +2,13 @@
 font-family:Arial, Helvetica, sans-serif;
 }
 
-
-button:hover {
-  transform: scale(1.1);
-
-}
-.btn {
-  color: white;
+body{
+  /* background-color: #f3f3f3; */
 }
 #maindiv{
+  background-color: #ffffff;
 
-  
+  position: center;
   display: flex;
   flex-direction: row;
   height: 490px;
@@ -25,7 +21,8 @@ button:hover {
   padding: 20px;
   border-radius: 25px;
   align-items: center;
-
+  
+  margin-top: -1px;
 }
 #left{
   height: 460px;
@@ -40,24 +37,70 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 
+
 }
-#left img{
+#left img {
   height: 260px;
   width: 260px;
+  /* Add a box shadow for a 3D effect */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ccc;
+  border-radius: 5%;
+
+  transform: rotate(-5deg);
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
+
+#left img:hover {
+  transform: rotate(-10deg) scale(1.05);
+}
+
 #right{
-  margin-left:  10px;
+  margin-top: -25px;
+  margin-left:  12px;
   height: 450px;
   width:22vw;
   /* background-color: rgb(205, 90, 105); */
+ 
 
 
 }
-
-#loginbtn{
+#loginbtn {
   width: 300px;
   height: 40px;
+  background-color: #6a5acd; /* Purple background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+#loginbtn:hover {
+  background-color: #483d8b; /* Darker shade on hover */
+  transform: scale(1.05); /* Scale up slightly on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
+}
+
+
 #forgotpass{
   margin-left: 25px;
+}
+
+
+#dispmsg {
+  height: 50px;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;  /* Center text vertically as well */
+  margin: 26px auto;    /* Auto margin horizontally and 50px top margin */
+  color: #6a5acd;
+  color: rgb(255, 77, 0);
+  font-size: 25px;
 }
