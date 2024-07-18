@@ -1,126 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        * {box-sizing: border-box}
-
-/* Set a style for all buttons */
-button {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 70%;
-  opacity: 0.9;
+<?php
+if (file_exists('partials/db_connect.php')) {
+    include 'partials/db_connect.php';
+} else {
+    echo "Connection file not found.";
+    exit; // Exit the script if connection file is not found
 }
 
-button:hover {
-  opacity:1;
+if ((isset($_POST['savechanges'])) || ($_SERVER['REQUEST_METHOD'] == 'POST')) {
+    $username = $_POST['username'];
+    $country = $_POST['country'];
+    $phone = $_POST['phone'];
+    $about = $_POST['about'];
+    echo $username;
+    // if (isset($_FILES['profilePic']) && $_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
+    //     $targetDir = "profile_pics/";
+    //     $targetFile = $targetDir . basename($_FILES['profilePic']['name']);
+    //     if (move_uploaded_file($_FILES['profilePic']['tmp_name'], $targetFile)) {
+    //         $profilePic = $targetFile;
+    //     } else {
+    //         echo '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:5px;">
+    //             <strong>Error uploading profile picture!</strong>
+    //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    //         </div>';
+    //     }
+    // }
+
+    // $UpdateProfile = "UPDATE user_profile SET profile_pic='$profilePic', username='$username', country='$country', phone='$phone', About='$about' WHERE UID=$CurrentLoginUID";
+    // $UpdateDetails = "UPDATE user_details SET username='$username' WHERE UID=$CurrentLoginUID";
+    // if (!mysqli_query($link, $UpdateProfile) || !mysqli_query($link, $UpdateDetails)) {
+    //     echo "Error updating record: " . mysqli_error($link);
+    // } else {
+
+    //     $_SESSION['profile'] = 'Profile updated successfully!!';
+       
+    
+    // }
 }
-
-/* Float cancel and delete buttons and add an equal width */
-.cancelbtn, .deletebtn {
-  float: left;
-  width: 50%;
-}
-
-/* Add a color to the cancel button */
-.cancelbtn {
-  background-color: #ccc;
-  color: black;
-}
-
-/* Add a color to the delete button */
-.deletebtn {
-  background-color: #f44336;
-}
-
-/* Add padding and center-align text to the container */
-.container {
-  padding: 16px;
-  text-align: center;
-}
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: #474e5d;
-  padding-top: 50px;
-}
-
-/* Modal Content/Box */
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-}
-
-/* Style the horizontal ruler */
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* The Modal Close Button (x) */
-.close {
-  position: absolute;
-  right: 35px;
-  top: 15px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #f1f1f1;
-}
-
-.close:hover,
-.close:focus {
-  color: #f44336;
-  cursor: pointer;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and delete button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .deletebtn {
-    width: 100%;
-  }
-}
-    </style>
-</head>
-<body>
-<button onclick="document.getElementById('id01').style.display='block'">Open Modal</button>
-
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-  <form class="modal-content" action="/action_page.php">
-    <div class="container">
-      <h1>Delete Account</h1>
-      <p>Are you sure you want to delete your account?</p>
-
-      <div class="clearfix">
-        <button type="button" class="cancelbtn">Cancel</button>
-        <button type="button" class="deletebtn">Delete</button>
-      </div>
-    </div>
-  </form>
-</div>
-</body>
-</html>
+?>

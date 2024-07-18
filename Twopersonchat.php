@@ -27,7 +27,9 @@ if (isset($_POST['frdUID']) && isset($_POST['currUID'])) {
     // echo 'Current login UID: ' . $currUID . '<br>';
     // echo 'Sender UID: ' . $frdUID . '<br>';
 }
-
+if (isset($_POST['chat'])) {
+    // include 'iindex.php';
+}
 if (isset($_POST['action']) && $_POST['action'] == 'send_message') {
     $name = $_POST['name'];
     $msg = $_POST['msg'];
@@ -72,129 +74,7 @@ function insertMessage($name, $msg, $sender, $receiver)
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <style>
-        #main {
-            font-family: 'Poppins', sans-serif;
-            height: 650px;
-            width: 100%;
-            position: relative;
-
-        }
-
-        #top {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-
-            height: 70px;
-            width: 100%;
-            background-color: white;
-
-            border-radius: 0px 20px 0px 0px;
-        }
-
-        #bottom {
-            padding: 10px;
-            background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('background.jpg');
-
-            position: relative;
-            height: 560px;
-            width: 100%;
-            background-color: white;
-            border-radius: 0px 0px 20px 0px;
-
-            overflow: scroll;
-
-        }
-
-        #receivedmessages {
-            color: white;
-            word-wrap: break-word;
-            background-color: #fc5894;
-
-            border-radius: 20px 20px 20px 0;
-            display: inline-block;
-            position: absolute;
-            max-width: 50%;
-            left: 10px;
-            padding: 10px;
-        }
-
-        #sentmessaged {
-            background-color: #007bff;
-            color: white;
-            max-width: 50%;
-            margin-left: 60%;
-            text-align: end;
-            border-radius: 20px 20px 0 20px;
-            word-wrap: break-word;
-
-            display: inline-block;
-            position: absolute;
-            right: 10px;
-            padding: 10px;
-
-        }
-
-        #addbottom {
-            margin-bottom: 50px;
-
-
-        }
-
-        #takemsg {
-            background-color: white;
-            bottom: 25px;
-            width: 63.5%;
-            display: flex;
-            justify-content: center;
-            position: fixed;
-            margin-left: -13px;
-            border: 1px solid #dbe2ef;
-            border-radius: 0 0 20px 0;
-
-        }
-
-
-        #msg {
-            width: 600px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-
-        }
-
-
-        #btn {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        #btn:hover {
-            background-color: #0056b3;
-        }
-
-        #displayfriendprofile {
-            height: 60px;
-            width: 60px;
-            border: 1px solid white;
-            border-radius: 40px;
-        }
-
-        #focus {
-            position: fixed;
-            bottom: 80px;
-            height: 1px;
-            width: 100%;
-            background-color: red;
-
-        }
-    </style>
+   <link rel="stylesheet"  href="style_chatRS.css">
 </head>
 
 <body>
@@ -283,28 +163,39 @@ function insertMessage($name, $msg, $sender, $receiver)
 
     <div id="takemsg">
         <form id="messageForm">
-
+        <!-- <label for="file" class="file-label">
+        <input type="file" id="file" style="display: none;" onchange="showFileName(this)">
+        <span class="file-button" id="file-label">Choose File</span>
+    </label> -->
             <input type="text" id="msg" name="msg" autocomplete="off" placeholder="Enter Your message..." required>
             <input type="button" id="btn" value="Send">
         </form>
     </div>
 </div>
 </div>
+<script>
+    document.getElementById('msg').addEventListener('keypress', function(event) {
+        if (document.getElementById('msg').value !== '') {
+            if (event.key === 'Enter') {
+                document.getElementById('btn').click();
+            }
+        }
+
+    });
+    
+</script>
 
 <script>
-
-   
-
     $(document).ready(function() {
 
         console.log("hii");
 
         var conn = new WebSocket('ws://localhost:8081');
-        
-        var userId = "<?php echo $CurrentLoginUID; ?>";   
+
+        var userId = "<?php echo $CurrentLoginUID; ?>";
         var username = "<?php echo $CurrentLoginName; ?>";
         var receiver = "<?php echo $frdUID; ?>";
-                            
+
         conn.onopen = function(e) {
             console.log("Connection established!");
             conn.send(JSON.stringify({
@@ -322,44 +213,48 @@ function insertMessage($name, $msg, $sender, $receiver)
             var sender = data.sender;
             var reciever = data.receiver;
             var time = new Date().toLocaleTimeString();
-          
-                var html = "<div id='addbottom'><div id='receivedmessages' ><b>" + msg + "</b><br>" + time + "</div></div><br/>";
-                $('#allmsg').append(html);
-            
+
+            var html = "<div id='addbottom'><div id='receivedmessages' ><b>" + msg + "</b><br>" + time + "</div></div><br/>";
+            $('#allmsg').append(html);
+
         };
 
         $("#btn").click(function() {
             var msg = $('#msg').val();
-            var receiver = "<?php echo $frdUID; ?>";
+            if (msg !== '') {
 
-            var content = {
-                type: 'message',
-                name: username,
-                msg: msg,
-                sender: userId,
-                receiver: receiver
-            };
-            var time = new Date().toLocaleTimeString();
 
-            var html1 = "<div id='addbottom'><div id='sentmessaged'><b>" + msg + "</b><br>" + time + "</div></div><br/>";
+                var receiver = "<?php echo $frdUID; ?>";
 
-            $('#allmsg').append(html1);
+                var content = {
+                    type: 'message',
+                    name: username,
+                    msg: msg,
+                    sender: userId,
+                    receiver: receiver
+                };
+                var time = new Date().toLocaleTimeString();
 
-            conn.send(JSON.stringify(content));
+                var html1 = "<div id='addbottom'><div id='sentmessaged'><b>" + msg + "</b><br>" + time + "</div></div><br/>";
 
-            $.post('Twopersonchat.php', {
-                action: 'send_message',
-                name: username,
-                msg: msg,
-                sender: userId,
-                receiver: receiver
-            }).done(function(response) {
-                console.log("Message sent and stored in the database.");
-            }).fail(function() {
-                alert("Error sending message.");
-            }); 
+                $('#allmsg').append(html1);
 
-            $('#msg').val('');
+                conn.send(JSON.stringify(content));
+
+                $.post('Twopersonchat.php', {
+                    action: 'send_message',
+                    name: username,
+                    msg: msg,
+                    sender: userId,
+                    receiver: receiver
+                }).done(function(response) {
+                    console.log("Message sent and stored in the database.");
+                }).fail(function() {
+                    alert("Error sending message.");
+                });
+
+                $('#msg').val('');
+            }
         });
     });
 </script>

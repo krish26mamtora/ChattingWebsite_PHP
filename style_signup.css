@@ -2,20 +2,21 @@
     font-family: Arial, Helvetica, sans-serif;
   }
 
-  button:hover {
-    transform: scale(1.1);
-  }
 
-  .btn {
+  
+
+  /* .btn {
     color: white;
-  }
+  } */
 body{
-background-color: #f3f3f3;
+/* background-color: #f3f3f3; */
+background-color: rgb(255, 255, 255);
 
 }
   #maindiv {
+    
     background-color: #ffffff;
-
+    
     display: flex;
     flex-direction: row;
     height: 490px;
@@ -27,13 +28,29 @@ background-color: #f3f3f3;
     border-radius: 25px;
     align-items: center;
     justify-content: space-between;
+    margin-top: -1px;
   }
 #regbtn{
-background-color: slateblue;
-}
+  width: 230px;
+  height: 40px;
+  background-color: #6a5acd; /* Purple background color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;}
   #left {
     height: 100%;
     width: 50%;
+  }
+
+  #regbtn:hover {
+    background-color: #483d8b; /* Darker shade on hover */
+    transform: scale(1.05); /* Scale up slightly on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow on hover */
   }
 
   #signupform {
@@ -41,6 +58,7 @@ background-color: slateblue;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-right: 15px;
   }
 
   #right {
@@ -69,7 +87,33 @@ background-color: slateblue;
   justify-content: center;
   align-items: center;  /* Center text vertically as well */
   margin: 26px auto;    /* Auto margin horizontally and 50px top margin */
-  color: #6a5acd;
   color: rgb(255, 77, 0);
   font-size: 25px;
+}
+
+#dispalertsignup{
+  height: 50px;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;  /* Center text vertically as well */
+  margin: 26px auto;    /* Auto margin horizontally and 50px top margin */
+  font-size: 25px;
+  color: rgb(255, 77, 0);
+}
+
+#right img {
+  height: 260px;
+  width: 260px;
+  /* Add a box shadow for a 3D effect */
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+  border: 3px solid #ccc;
+  border-radius: 5%;
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+#right img:hover {
+  transform:  scale(1.05);
 }

@@ -6,7 +6,7 @@ if (file_exists('partials/db_connect.php')) {
     echo "connection file not found.";
 }
 
-if (isset($_POST['SendFR'])) {
+if (isset($_POST['SendFR']) || $_SERVER['REQUEST_METHOD'] == 'POST') {
     $sendtoemail = $_POST['senduseremail'];
     $UID = $_POST['UID'];
     $currentmail = $_POST['currentuser'];

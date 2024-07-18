@@ -45,40 +45,23 @@ if (isset($_GET['token'])) {
                             }
                         }
                     } else {
-                        //       echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                        // <strong>Please enter a valid password</strong> 
-                        // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        // </div>
-                        // ';
-                        // echo 'Please enter a valid password';
+                       
                         $_SESSION['msg']="Please enter a valid password";
 
                     }
                 } else {
-                    // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                    //     <strong>Please enter valid Email-id</strong> 
-                    //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    //     </div>
-                    //     ';
+                   
                     $_SESSION['msg']="Please enter valid Email-id";
 
                 }
             }
         } else {
-            // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-            //             <strong>Account is already varified</strong> 
-            //             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            //             </div>
-            //             ';
+          
             $_SESSION['msg']="Account is already varified";
 
         }
     } else {
-        // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-        //                 <strong>Invalid token</strong> 
-        //                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        //                 </div>
-        //                 ';
+    
         $_SESSION['msg']="Invalid token";
 
     }
@@ -110,31 +93,17 @@ if (isset($_GET['token'])) {
 
                         }
                     } else {
-                        // echo '<div class="d-flex justify-content-center">
-
-                        // <div class="alert alert-danger alert-dismissible fade show mt-4 w-75" role="alert">
-                        // <strong>Please enter a valid password</strong> 
-                        // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        // </div> </div>
-                        // ';
+                  
                         $_SESSION['msg']="Please enter a valid password";
                     }
                 } else {
-                    // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-                    //     <strong>Please varify your account</strong> 
-                    //     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    //     </div>
-                    //     ';
+              
                     $_SESSION['msg']="Please varify your account";
 
                 }
             }
         } else {
-            // echo '<div id="alertmsg" class="alert alert-danger alert-dismissible fade show" role="alert" >
-            // <strong>No user found with this emial id</strong> 
-            // <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            // </div>
-            // ';
+          
             $_SESSION['msg']="No user found with this emial id";
         }
     }
@@ -150,6 +119,22 @@ if (isset($_GET['token'])) {
     <title>Login Verify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style_login.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+    .toggle-password-btn {
+        position: relative;
+        padding: 6px 10px;
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
+
+    .toggle-password-btn:focus {
+        outline: none;
+    }
+</style>
+
 </head>
 
 <body>
@@ -158,6 +143,7 @@ if (isset($_GET['token'])) {
     <?php 
 if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
     echo $_SESSION['msg'];
+    $_SESSION['msg']='';
 } else {
     // echo "No message available.";
 }
@@ -184,9 +170,18 @@ if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
                     <input type="email" value="<?php if(isset($_COOKIE['emailcookie'])){ echo $_COOKIE['emailcookie']; } ?>" class="form-control" name="email" id="InputEmail" aria-describedby="emailHelp" required>
                 </div>
                 <div class="mb-3">
+
                     <label for="InputPassword" class="form-label">Password</label>
+                    <div class="input-group">
+
                     <input type="password"  value="<?php if(isset($_COOKIE['passwordcookie'])){ echo $_COOKIE['passwordcookie']; } ?>"  name="password" class="form-control" id="InputPassword" required>
+                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="fa fa-eye" style="font-size:20px" id="confirmEyeIcon"></i>
+                    </button>
+                    </div>
                 </div>
+   
+
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" name="rememberme" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Remember me</label>
@@ -216,6 +211,19 @@ if(isset($_SESSION['msg']) && !empty($_SESSION['msg'])) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+       // For Password Field
+       const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#InputPassword');
+
+    togglePassword.addEventListener('click', function() {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+    });
+    });
+</script>
+
 </body>
 
 </html>

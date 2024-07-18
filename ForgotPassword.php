@@ -50,7 +50,7 @@ if (isset($_POST['rstpswmail'])) {
 
         if ($mail) {
           
-          $_SESSION['msg']  ="Update Password Mail has been sent to $to pease check you email";
+          $_SESSION['msg']  ="Update Password email has been sent to $to pease check you email";
           header('location:Userloginpage.php');
         } else {
           $_SESSION['msg']= 'Email sending failed.';
@@ -83,7 +83,9 @@ if (isset($_POST['rstpswmail'])) {
     <style>
      
 
-  
+    body{
+      background-color: #c9c8db;
+    }
         .container {
           border:1px solid  #6a5acd;
           border-radius: 15px;
@@ -94,8 +96,10 @@ if (isset($_POST['rstpswmail'])) {
           justify-content: center;
           flex-direction: column;
 margin-top: 150px;
+background-color: white;
         }
         form {
+         
             max-width: 400px;
             width: 100%;
         }
@@ -109,14 +113,14 @@ margin-top: 150px;
 <div id="main">
 <div class="container">
     <form class="row g-3" method="POST" action="ForgotPassword.php">
-        <h3>Recover Your Account</h3>
-        <h6>send email to reset your password</h6>
+        <h3>Reset Password</h3>
+        <h6>Please enter your email address below to receive instructions on how to reset your password.</h6>
         <div class="col-12">
             <label for="email" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
         </div>
         <div class="col-12">
-            <button type="submit" name="rstpswmail" class="btn btn-primary">send email</button>
+            <button type="submit" name="rstpswmail" class="btn btn-primary">Submit</button>
         </div>
     </form>
     

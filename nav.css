@@ -6,3 +6,12 @@
     
     transform: scale(1.1);
 }
+
+.logo {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 20%;
+    border: 1px solid white;
+    object-fit: cover; /* Ensures the image covers the circular area */
+    display: block; /* Removes any default inline spacing */
+}

@@ -1,0 +1,198 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    max-width: 1000px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+table th {
+    background-color: #a6a1e0;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f1f3f5;
+}
+
+table tr:hover {
+    background-color: #e9ecef;
+}
+
+button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#RemoveFriend {
+    background-color: #FC7858;
+}
+
+#ViewProfile {
+    background-color: #fc5894;
+
+}
+
+#chat {
+    background-color: #6a5acd;
+
+}
+
+button:disabled {
+    background-color: #ddd;
+}
+
+.modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+      
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      animation: slideIn 0.3s ease-out;
+     width: 50%;
+  }
+  #modal-comments{
+      width: 35%;
+  }
+  
+  .ctnbtn, .ctnttl{
+      display: flex;
+      justify-content:center ;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    cursor: pointer;
+    font-size: 30px;
+  }
+  #profileImage{
+    height:40px;
+    width: 40px;
+    
+  }
+
+  .form-group {
+    margin-bottom: 10px; /* Space between form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px; /* Space below label */
+    font-weight: bold; /* Bold labels for clarity */
+    color: #333; /* Dark color for contrast */
+}
+
+.form-group input {
+    width: 100%; /* Full width for inputs */
+    padding: 8px; /* Comfortable padding */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Ensure padding is included in total width */
+    background-color: #f9f9f9; /* Light background for inputs */
+    font-size: 14px; /* Font size for inputs */
+}
+
+.form-group input[readonly] {
+    background-color: #e9ecef;
+   
+}
+
+.form-group.row {
+    display: flex; /* Flex layout for row groups */
+    justify-content: space-between; /* Space between items */
+}
+
+.form-group.row div {
+    flex: 1; /* Allow items to grow equally */
+    margin-right: 10px; /* Space between items */
+}
+
+.form-group.row div:last-child {
+    margin-right: 0; /* Remove margin from the last item */
+}
+.form-group {
+    margin-bottom: 10px; /* Space between form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px; /* Space below label */
+    font-weight: bold; /* Bold labels for clarity */
+    color: #333; /* Dark color for contrast */
+}
+
+.form-group input {
+    width: 100%; /* Full width for inputs */
+    padding: 8px; /* Comfortable padding */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    box-sizing: border-box; /* Ensure padding is included in total width */
+    background-color: #f9f9f9; /* Light background for inputs */
+    font-size: 14px; /* Font size for inputs */
+}
+
+.form-group input[readonly] {
+    background-color: #e9ecef; 
+    
+}
+
+.form-group.row {
+    display: flex; /* Flex layout for row groups */
+    justify-content: space-between; /* Space between items */
+}
+
+.form-group.row div {
+    flex: 1; /* Allow items to grow equally */
+    margin-right: 10px; /* Space between items */
+}
+
+.form-group.row div:last-child {
+    margin-right: 0; 
+}
+#Addfrnd{
+    background-color: #5a4dcd;
+    width:40%;
+}
+#back{
+    background-color: #fc5894;
+    width:40%;
+}
+.button-container{
+    text-align: center;
+
+}

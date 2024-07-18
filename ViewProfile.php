@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Details</title>
-    <link rel="stylesheet" href="ProfileStyle.css">
+    <!-- <link rel="stylesheet" href="ProfileStyle.css"> -->
 
 </head>
 
@@ -37,9 +37,30 @@
                     die("User not found.");
                 }
 
-                if (isset($_POST['ViewProfile'])) {
+                if (isset($_POST['ViewProfile']) || $_SERVER['REQUEST_METHOD']=='POST') {
                     $UserUID = $_POST['UID'];
                     $UserEmail = $_POST['senduseremail'];
+
+                    $sentQuery = 'SELECT * FROM user_connections WHERE UID = "' . $CurrentLoginUID . '"';
+                    $sentResult = mysqli_query($link, $sentQuery);
+                    $alreadySent = false;
+                    $alreadyFriend = false;
+                    $alreadyReceived = false;
+                    if ($sentResult && mysqli_num_rows($sentResult) > 0) {
+                        $sentRow = mysqli_fetch_array($sentResult);
+                        $sentArray = explode(' ', $sentRow['Sent']);
+                        if (in_array($UserUID, $sentArray)) {
+                            $alreadySent = true;
+                        }
+                        $FriendArray = explode(' ', $sentRow['Friends']);
+                        if (in_array($UserUID, $FriendArray)) {
+                            $alreadyFriend = true;
+                        }
+                        $ReceivedArray = explode(' ', $sentRow['Recieved']);
+                        if (in_array($UserUID, $ReceivedArray)) {
+                            $alreadyReceived = true;
+                        }
+                    }
                     $FetchUserdata = "SELECT * FROM user_profile WHERE UID = '$UserUID'";
                     $FetchUserdata_run = mysqli_query($link, $FetchUserdata);
                     if ($FetchUserdata_run && mysqli_num_rows($FetchUserdata_run) > 0) {
@@ -94,35 +115,43 @@
                 <label for="about">About</label>
                 <textarea id="about" name="about" readonly><?php echo $row['About']; ?></textarea>
             </div>
-            <button type="button" id="Addfrnd">Add Friend</button>
+            <div class="button-container">
+
+            <!-- <button type="button" id="Addfrnd" onclick="AddFriend()">Add Friend</button> -->
+            <?php
+            if ($alreadySent) {
+                            echo '<button style="background-color: #c2c0da; width:40%; margin-bottom: 10px;" class="view_only" disabled>Already Sent</button>';
+                        } elseif ($alreadyFriend) {
+                            echo '<button class="view_only" style="background-color: #c2c0da;  width:40%; margin-bottom: 10px;" disabled>Already Friend</button>';
+                        } elseif ($alreadyReceived) {
+                            echo '<button class="view_only" style="background-color: #c2c0da;  width:40%; margin-bottom: 10px;" disabled>Friend Request Pending</button>';
+                        } else {
+                        ?>
+                            <form method="POST" id="Addfrdform" action="SendRequest.php">
+                                <input type="hidden" name="senduseremail" value="<?php echo ($UserEmail); ?>">
+                                <input type="hidden" name="UID" value="<?php echo ($UserUID); ?>">
+                                <input type="hidden" name="CurrentLoginUID" value="<?php echo ($CurrentLoginUID); ?>">
+                                <input type="hidden" name="currentuser" value="<?php echo ($_SESSION["email"]); ?>">
+                                <button type="button" class="SendFR" name="SendFR" style="width:40%; margin-bottom: 10px;">Add Friend</button>
+                            </form>
+   
+                       <?php } ?>
         </form>
         <br>
-        <form action="Sidebar.php" method="GET">
-            <input type="hidden" name="page" value="SendRequest.php">
-            <button type="submit" id="back">Back</button>
-        </form>
-    </div>
+   
+            <button type="button" id="back" onclick="closeModal()">Back</button>
+    </div> </div>
+    <script>
+     
+  function closeModal() {
+    var modalBg = document.getElementById('modalprofile');
+    modalBg.style.display = 'none';
+  }
+</script>
 </body>
 
 </html>
-<script>
-    $(document).ready(function() {
-        $(document).on('click', '.SendFR', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'SendRequest.php',
-                data: $('#Addfriend').serialize(),
-                success: function(response) {
-                    alert(response);
-                },
-                error: function() {
-                    alert("error");
-                }
-            });
-        });
-    });
-</script>
+
 <?php
 
                         }

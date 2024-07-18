@@ -1,0 +1,122 @@
+#main {
+    font-family: 'Poppins', sans-serif;
+    height: 650px;
+    width: 100%;
+    position: relative;
+
+}
+
+#top {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    height: 70px;
+    width: 100%;
+    background-color: white;
+
+    border-radius: 0px 20px 0px 0px;
+}
+
+#bottom {
+    padding: 10px;
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url('background.jpg');
+    position: relative;
+    height: 560px;
+    width: 100%;
+    background-color: white;
+    border-radius: 0px 0px 20px 0px;
+
+    overflow: scroll;
+
+}
+
+#receivedmessages {
+    color: white;
+    word-wrap: break-word;
+    background-color: hsl(338, 96%, 67%);
+    /* background-color: rgb(234, 234, 234); */
+
+    border-radius: 20px 20px 20px 0;
+    display: inline-block;
+    position: absolute;
+    max-width: 50%;
+    left: 10px;
+    padding: 10px;
+}
+
+#sentmessaged {
+    background-color: #007bff;
+    color: white;
+    max-width: 50%;
+    margin-left: 60%;
+    text-align: end;
+    border-radius: 20px 20px 0 20px;
+    word-wrap: break-word;
+
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    padding: 10px;
+
+}
+
+#addbottom {
+    margin-bottom: 50px;
+
+
+}
+
+#takemsg {
+    background-color: white;
+    bottom: 25px;
+    width: 63.5%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    margin-left: -13px;
+    border: 1px solid #dbe2ef;
+    border-radius: 0 0 20px 0;
+
+}
+
+
+#msg {
+    width: 600px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+
+}
+
+
+#btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#btn:hover {
+    background-color: #0056b3;
+}
+
+#displayfriendprofile {
+    height: 60px;
+    width: 60px;
+    border: 1px solid white;
+    border-radius: 40px;
+}
+
+#focus {
+    position: fixed;
+    bottom: 80px;
+    height: 1px;
+    width: 100%;
+    background-color: red;
+
+}
+

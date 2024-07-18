@@ -66,8 +66,13 @@ if (isset($_GET['token'])) {
     <style>
      
 
-  
+     body{
+      background-color: #c9c8db;
+    }
         .container {
+           
+      background-color:white;
+    
           border:1px solid  #6a5acd;
           border-radius: 15px;
           height: 400px;
@@ -93,15 +98,15 @@ margin-top: 150px;
 
     <div class="container">
         <form class="row g-3" action="resetpassword.php" id="myForm"  method="POST">
-            <h3>Recover Your Account</h3>
-            <h6>Please enter new password to set</h6>
+            <h3>Reset Your Password</h3>
+            <h6>Please enter your new password and confirm it below.</h6>
             <div class="col-12">
-                <label for="password" class="visually-hidden">New password</label>
-                <input type="password" name="password" class="form-control" id="password" placeholder="New password">
+                <label for="password" >New Password</label>
+                <input type="password" name="password" class="form-control" id="password" >
             </div>
             <div class="col-12">
-                <label for="confirm_password" class="visually-hidden">confirmmpassword</label>
-                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="confirm new password">
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" name="confirm_password" class="form-control" id="confirm_password" >
             </div>
             <div class="col-12">
                 <button type="button"  id="btn" name="rstpsw" class="btn btn-primary mb-3">Update Password</button>

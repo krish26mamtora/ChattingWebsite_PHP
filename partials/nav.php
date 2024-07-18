@@ -24,12 +24,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
   <nav class="navbar navbar-expand-lg" style="background-color:slateblue;">
     <div class="container-fluid" id="nav">
-      <a class="navbar-brand" style=" color: white;">ChattingApp</a>
+      <img src="logoimg.png" alt="logo" class="logo">
+      <!-- <a class="navbar-brand" style=" color: white;">WhisperWeb</a>  -->
+      <!-- <h5 style=" color: white;">WhisperWeb</h5> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent" id="navul">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="navul">
+          <!-- <li class="nav-item" >
+          </li> -->
           <?php
           if ($loggedin) {
             echo '

@@ -44,7 +44,7 @@ if (!isset($_SESSION['email'])) {
                     <svg class="bi pe-none me-2" width="40" height="32">
                         <use xlink:href="#bootstrap"></use>
                     </svg>
-                    <span class="fs-5">ChattingApp</span>
+                    <span class="fs-5">ChattingWeb</span>
                 </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
@@ -99,6 +99,8 @@ if (!isset($_SESSION['email'])) {
                 if ($result && mysqli_num_rows($result) > 0) {
                     $row = mysqli_fetch_assoc($result);
                     $CurrentLoginUID = $row['UID'];
+                    $CurrentLoginname = $row['username'];
+
                 } else {
                     die("User not found.");
                 }
@@ -125,7 +127,7 @@ if (!isset($_SESSION['email'])) {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
     $(document).ready(function() {
-        var currentPage = 'Userhomepage.php'; // Default page
+        var currentPage = 'Userhomepage.php';
 
         function loadPage(page) {
             $.ajax({
@@ -155,7 +157,6 @@ if (!isset($_SESSION['email'])) {
 
         loadPage(currentPage);
 
-        // Set default active link
         if (!pageFromQuery || pageFromQuery === 'Userhomepage.php') {
             $('#home-link').addClass('active');
         } else {
@@ -203,7 +204,7 @@ if (isset($_POST['Delete_Account'])) {
     if ($result && mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $CurrentLoginUID = $row['UID'];
-    }
+         }
 
     $delfromdetails = "DELETE FROM `user_details` WHERE `UID` = '$CurrentLoginUID'";
     $delfromconnections = "DELETE FROM `user_connections` WHERE `UID` = '$CurrentLoginUID'";
@@ -224,4 +225,8 @@ if (isset($_POST['Delete_Account'])) {
         echo "Error deleting account.";
     }
 }
+
+
+
+
 ?>

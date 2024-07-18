@@ -36,6 +36,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.7);
 
 
 }
@@ -68,7 +69,7 @@ justify-content: center;
 #loginbtn {
   width: 300px;
   height: 40px;
-  background-color: #6a5acd; /* Purple background color */
+  background-color: #6a5acd; 
   color: white;
   border: none;
   border-radius: 5px;
@@ -101,6 +102,8 @@ justify-content: center;
   align-items: center;  /* Center text vertically as well */
   margin: 26px auto;    /* Auto margin horizontally and 50px top margin */
   color: #6a5acd;
-  color: rgb(255, 77, 0);
   font-size: 25px;
+  color: rgb(255, 77, 0);
+
 }
+

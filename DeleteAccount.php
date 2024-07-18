@@ -1,12 +1,12 @@
 <?php
 session_start();
+require_once 'DisplayAllFriendsList.php';
+if (file_exists('partials/db_connect.php')) {
+    include 'partials/db_connect.php';
+} else {
+    echo "Connection file not found.";
+}
 if (isset($_POST['Delete_Account'])) {
-
-    if (file_exists('partials/db_connect.php')) {
-        include 'partials/db_connect.php';
-    } else {
-        echo "Connection file not found.";
-    }
 
     $email = $_SESSION['email'];
     $UIDofCurrentLoginUser = "SELECT UID FROM user_details WHERE email = '$email'";
@@ -18,16 +18,12 @@ if (isset($_POST['Delete_Account'])) {
         $CurrentLoginUID = $row['UID'];
     }
 
-    $delfromdetails = "DELETE FROM `user_details` WHERE `UID` = '$CurrentLoginUID'";
-    $delfromconnections = "DELETE FROM `user_connections` WHERE `UID` = '$CurrentLoginUID'";
-    $delfromprofile = "DELETE FROM `user_profile` WHERE `UID` = '$CurrentLoginUID'";
+    $result1 = delete('user_details',`UID`, $CurrentLoginUID);
+    $result2 = delete('user_connections',`UID`, $CurrentLoginUID);
+    $result3 = delete('user_profile',`UID`, $CurrentLoginUID);
+    $result4 = delete('posts',`UID`, $CurrentLoginUID);
 
-    $result1 = mysqli_query($link, $delfromdetails);
-    $result2 = mysqli_query($link, $delfromconnections);
-    $result3 = mysqli_query($link, $delfromprofile);
-
-
-    if ($result1 && $result2 && $result3) {
+    if ($result1 && $result2 && $result3 && $result4 ) {
         echo "Account deleted successfully.";
         session_unset();
         session_destroy();
@@ -37,4 +33,3 @@ if (isset($_POST['Delete_Account'])) {
         echo "Error deleting account.";
     }
 }
-?>

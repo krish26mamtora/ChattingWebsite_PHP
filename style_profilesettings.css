@@ -121,11 +121,13 @@ button:hover {
     padding: 10px 20px;
     font-size: 16px;
     color: #ffffff;
-    background-color: #da6551;
+    background-color: #ff6b51;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 50%;
+    margin-top: 10px;
+    max-height: 50px;
+   /* height: 10px; */
 }
 
 #leavebtns{
@@ -157,6 +159,7 @@ button:hover {
 .deletebtn {
     float: left;
     width: 50%;
+    
 }
 
 /* Add a color to the cancel button */
@@ -269,3 +272,16 @@ hr {
             box-sizing: border-box;
             border-radius: 5px;
         }
+
+        #viewposts{
+            background-color:#fc5894;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            /* background-color: #ff6b51; */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            max-height: 50px;
+          }

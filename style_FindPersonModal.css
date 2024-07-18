@@ -1,0 +1,93 @@
+#profile_image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    animation: slideIn 0.3s ease-out;
+    width: 35%;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+#profileImage {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+    margin-left: 200px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    font-size: 14px;
+}
+
+.form-group input[readonly] {
+    background-color: #e9ecef;
+}
+
+.form-group.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group.row div {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.form-group.row div:last-child {
+    margin-right: 0;
+}
+
+#Addfrnd {
+    background-color: #5a4dcd;
+    width: 40%;
+}
+
+#back {
+    background-color: #fc5894;
+    width: 40%;
+}
+
+.button-container {
+    text-align: center;
+}
